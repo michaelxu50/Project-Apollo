@@ -6,6 +6,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 
 public class IAResolver implements BaseAnswerResolver {
 
@@ -20,6 +22,7 @@ public class IAResolver implements BaseAnswerResolver {
 
     @Override
     public String resolve(String query) {
+        query = URLEncoder.encode(query, Charset.defaultCharset());
         String queryURL = "https://api.duckduckgo.com/?q=" + query + "&format=json&pretty=1&t=hackathonproject";
         System.out.println("Query URL: " + queryURL);
         Request ddgRequest = new Request.Builder()
