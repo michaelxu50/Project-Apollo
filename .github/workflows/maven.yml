@@ -49,8 +49,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: staging/*.jar
-          asset_name: staging/*.jar
+          asset_path: staging
           asset_content_type: application/jar
 
       - uses: eregon/publish-release@v1
