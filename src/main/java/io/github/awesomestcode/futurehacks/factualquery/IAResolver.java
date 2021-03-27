@@ -25,7 +25,7 @@ public class IAResolver implements BaseAnswerResolver {
         Request ddgRequest = new Request.Builder()
                 .url(queryURL)
                 .header("Content-Type", "application/json")
-                .header("User-Agent", "AwesomestHackathon/1.0 (+https://awesomestcode.github.io/futurehacksproject)")
+                .header("User-Agent", "AwesomestHackathon/1.0 (+https://awesomestcode.github.io/FutureHacksProject)")
                 .header("Connection", "Keep-Alive")
                 .build();
 
