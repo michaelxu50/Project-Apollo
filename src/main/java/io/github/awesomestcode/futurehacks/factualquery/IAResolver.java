@@ -20,7 +20,6 @@ public class IAResolver implements BaseAnswerResolver {
         return instance;
     }
 
-    @Override
     public String resolve(String query) {
         query = URLEncoder.encode(query, Charset.defaultCharset());
         String queryURL = "https://api.duckduckgo.com/?q=" + query + "&format=json&pretty=1&t=hackathonproject";
