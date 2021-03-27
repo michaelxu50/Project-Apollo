@@ -3,6 +3,7 @@ package io.github.awesomestcode.futurehacks;
 import io.github.awesomestcode.futurehacks.factualquery.CalculationResolver;
 import io.github.awesomestcode.futurehacks.factualquery.IAResolver;
 import io.github.awesomestcode.futurehacks.factualquery.JokeResolver;
+import io.github.awesomestcode.futurehacks.factualquery.WeatherResolver;
 
 import java.util.HashSet;
 import java.util.Scanner;
@@ -83,6 +84,8 @@ public class QueryHandler {
                 return CalculationResolver.getInstance().resolve(query);
             case JOKE:
                 return JokeResolver.getInstance().resolve(query);
+            case WEATHER:
+                return WeatherResolver.getInstance().resolve(query);
             default:
                 throw new RuntimeException("Hmm, something went wrong. Received an invalid query type");
         }
