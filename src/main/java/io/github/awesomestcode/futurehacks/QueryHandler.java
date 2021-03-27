@@ -1,5 +1,6 @@
 package io.github.awesomestcode.futurehacks;
 
+import io.github.awesomestcode.futurehacks.factualquery.CalculationResolver;
 import io.github.awesomestcode.futurehacks.factualquery.IAResolver;
 
 import java.util.HashSet;
@@ -19,7 +20,8 @@ public class QueryHandler {
         mathKeywords.add("multiplied");
         mathKeywords.add("times");
         mathKeywords.add("divide");
-        mathKeywords.add("to the power");
+        mathKeywords.add("divided");
+        mathKeywords.add("power");
     }
     private static QueryType categorise(String query) {
         String test = query.toLowerCase();
@@ -64,9 +66,12 @@ public class QueryHandler {
     public static String handleQuery(String query) {
         QueryType queryType = categorise(query);
         //noinspection SwitchStatementWithTooFewBranches
+        System.out.println("DEBUG Query Type: " + queryType);
         switch(queryType) {
             case INFO:
                 return IAResolver.getInstance().resolve(query);
+            case CALCULATION:
+                return CalculationResolver.getInstance().resolve(query);
             default:
                 throw new RuntimeException("Hmm, something went wrong. Received an invalid query type");
         }
