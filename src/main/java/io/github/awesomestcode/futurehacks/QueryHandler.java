@@ -64,6 +64,14 @@ public class QueryHandler {
         return false;
     }
     public static String handleQuery(String query) {
+        query = query.replace("?", " ")
+                .replace(".", " ")
+                .replace("!", " ")
+                .replace(";", " ")
+                .replace("\"", " ")
+                .replace(":", " ")
+                .replace("squared", "to the power of 2")
+                .replace("cubed", "to the power of 3");
         QueryType queryType = categorise(query);
         //noinspection SwitchStatementWithTooFewBranches
         System.out.println("DEBUG Query Type: " + queryType);
