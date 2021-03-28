@@ -1,5 +1,7 @@
 package io.github.awesomestcode.futurehacks;
 
+import io.github.awesomestcode.futurehacks.userinterface.WebInterfaceServer;
+
 import java.util.Scanner;
 
 public class Launcher {
@@ -26,7 +28,16 @@ public class Launcher {
                     System.exit(1);
             }
         }
+        System.out.println("Launching Web Server...");
+        new Thread(new WebServerLauncher()).start();
+        System.out.println("Launched web server.");
         System.out.println("Please input a query:");
         System.out.println(QueryHandler.handleQuery(scanner.nextLine()));
+    }
+    private static class WebServerLauncher implements Runnable {
+        @Override
+        public void run() {
+            WebInterfaceServer.main();
+        }
     }
 }
