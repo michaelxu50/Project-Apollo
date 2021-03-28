@@ -6,7 +6,7 @@
 
     <groupId>io.github.awesomestcode</groupId>
     <artifactId>Apollo</artifactId>
-    <version>1.0.0-RC1</version>
+    <version>1.0.0</version>
     <build>
         <plugins>
             <plugin>

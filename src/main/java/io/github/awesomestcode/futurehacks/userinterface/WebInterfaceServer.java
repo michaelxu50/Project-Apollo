@@ -21,7 +21,7 @@ public class WebInterfaceServer implements Runnable {
     static final int PORT = 8080;
 
     // verbose mode
-    static final byte verbosity = 5;
+    static final byte verbosity = -1;
 
     // Client Connection via Socket Class
     private final Socket connect;

@@ -7,8 +7,6 @@ import java.util.Scanner;
 public class Launcher {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("DEBUG: Running on Java " + System.getProperty("java.version"));
-        System.out.println("DEBUG: Flag \"IgnoreJavaVersion\" is set to " + System.getProperty("IgnoreJavaVersion"));
 
         if(!System.getProperty("java.version").equals("11.0.10") && System.getProperty("IgnoreJavaVersion") == null) {
             System.err.println("We haven't tested the program on this Java version! We highly recommend you install OpenJDK 11 from here: https://adoptopenjdk.net/. While it should work for the most part, unexpected errors may arise on untested versions.");

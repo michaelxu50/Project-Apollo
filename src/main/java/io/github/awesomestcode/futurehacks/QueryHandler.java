@@ -73,7 +73,6 @@ public class QueryHandler {
                 .replace("cubed", "to the power of 3");
         QueryType queryType = categorise(query);
         //noinspection SwitchStatementWithTooFewBranches
-        System.out.println("DEBUG Query Type: " + queryType);
         switch(queryType) {
             case CALCULATION:
                 return CalculationResolver.getInstance().resolve(query);
