@@ -4,19 +4,106 @@
     <meta charset="UTF-8">
     <title>Apollo's Chariot Arrived!</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <style>
+        body, html {
+            height: 100%;
+            overflow: hidden;
+        }
+        body {
+            background-image: url("https://cdn.discordapp.com/attachments/774078108235857931/825728704776241162/Olympus.jpeg");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
 </head>
 <body>
 <script>
+    // partly from https://stackoverflow.com/questions/21947730/chrome-speech-synthesis-with-longer-texts
+    /*let speechUtteranceChunker = function (utt, settings, callback) {
+        settings = settings || {};
+        let newUtt;
+        let txt = (settings && settings.offset !== undefined ? utt.text.substring(settings.offset) : utt.text);
+        if (utt.voice && utt.voice.voiceURI === 'native') { // Not part of the spec
+            newUtt = utt;
+            newUtt.text = txt;
+            newUtt.addEventListener('end', function () {
+                if (speechUtteranceChunker.cancel) {
+                    speechUtteranceChunker.cancel = false;
+                }
+                if (callback !== undefined) {
+                    callback();
+                }
+            });
+        }
+        else {
+            let chunkLength = (settings && settings.chunkLength) || 160;
+            let pattRegex = new RegExp('^[\\s\\S]{' + Math.floor(chunkLength / 2) + ',' + chunkLength + '}[.!?,]{1}|^[\\s\\S]{1,' + chunkLength + '}$|^[\\s\\S]{1,' + chunkLength + '} ');
+            let chunkArr = txt.match(pattRegex);
+
+            if (chunkArr[0] === undefined || chunkArr[0].length <= 2) {
+                //call once all text has been spoken...
+                if (callback !== undefined) {
+                    callback();
+                }
+                return;
+            }
+            let chunk = chunkArr[0];
+            newUtt = new SpeechSynthesisUtterance(chunk);
+            let x;
+            for (x in utt) {
+                if (utt.hasOwnProperty(x) && x !== 'text') {
+                    newUtt[x] = utt[x];
+                }
+            }
+            newUtt.addEventListener('end', function () {
+                if (speechUtteranceChunker.cancel) {
+                    speechUtteranceChunker.cancel = false;
+                    return;
+                }
+                settings.offset = settings.offset || 0;
+                settings.offset += chunk.length - 1;
+                speechUtteranceChunker(utt, settings, callback);
+            });
+        }
+
+        if (settings.modifier) {
+            settings.modifier(newUtt);
+        }
+        console.log(newUtt); //IMPORTANT!! Do not remove: Logging the object out fixes some onend firing issues.
+        //placing the speak invocation inside a callback fixes ordering and onend issues.
+        setTimeout(function () {
+            speechSynthesis.speak(newUtt);
+        }, 0);
+    };*/
     function listen() {
-        var msg = new SpeechSynthesisUtterance();
+        let msg = new SpeechSynthesisUtterance();
+        let myTimeout;
+        function myTimer() {
+            window.speechSynthesis.pause();
+            window.speechSynthesis.resume();
+            myTimeout = setTimeout(myTimer, 10000);
+        }
+        window.speechSynthesis.cancel();
+        myTimeout = setTimeout(myTimer, 10000);
+
+
         msg.volume = 1; // From 0 to 1
         msg.rate = 1; // From 0.1 to 10
-        msg.pitch = 0.1; // From 0 to 2
+        msg.pitch = 1.0; // From 0 to 2
         msg.text = "INPUT RESULT HERE";
         msg.lang = 'en-GB';
-        speechSynthesis.speak(msg);
+        msg.onend =  function() { clearTimeout(myTimeout); }
+        window.speechSynthesis.speak(msg);
+        /*speechUtteranceChunker(msg, {
+            chunkLength: 120
+        }, function () {
+            //some code to execute when done
+            console.log('done');
+        });*/
     }
 </script>
-    <button onclick="listen()" class="btn btn-primary mt-2">Hear your prophecy!</button>
+    <button onclick="listen()" class="btn btn-primary mt-2 align-middle" style="margin-left:50%; transform: translate(-50%, 100%); padding: 0 5rem; height: 5rem; width: 20rem;">Hear your prophecy!</button>
+    <button onclick="window.location='/sendQuery'" class="btn btn-secondary mt-2 align-middle" style="margin-left:50%; transform: translate(-50%, 100%); padding: 0 5rem; height: 5rem; width: 20rem;">Ask Apollo another question</button>
+    <h6 class="text-white text-center" style="margin-left: 50%; transform: translate(-50%, 20rem); vertical-align: bottom;">INPUT RESULT HERE</h6>
 </body>
 </html>

@@ -75,8 +75,6 @@ public class QueryHandler {
         //noinspection SwitchStatementWithTooFewBranches
         System.out.println("DEBUG Query Type: " + queryType);
         switch(queryType) {
-            case INFO:
-                return IAResolver.getInstance().resolve(query);
             case CALCULATION:
                 return CalculationResolver.getInstance().resolve(query);
             case JOKE:
@@ -88,7 +86,8 @@ public class QueryHandler {
             case TIME:
                 return TimeResolver.getInstance().resolve(query);
             default:
-                throw new RuntimeException("Hmm, something went wrong. Received an invalid query type");
+                String preAnswer = IAResolver.getInstance().resolve(query);
+                return preAnswer.isEmpty() ? "Apollo didn't like your offering enough for such a question. Maybe try giving him another question?" : preAnswer;
         }
     }
 }
