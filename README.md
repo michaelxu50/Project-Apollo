@@ -12,5 +12,5 @@ Run these commands:
 ```bash
 $ cd path/to/this/directory
 $ mvn package
-$ java -jar target/FutureHacksProject-0.1.0-SNAPSHOT.jar
+$ java -jar target/Apollo-1.0.0-RC1.jar
 ```
