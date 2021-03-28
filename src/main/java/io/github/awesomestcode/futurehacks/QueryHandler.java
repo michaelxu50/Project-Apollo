@@ -33,7 +33,7 @@ public class QueryHandler {
             }
         }
 
-        if (test.contains("define")) return QueryType.DICTIONARY;
+        if (test.contains("define")) return QueryType.INFO; //no time to properly implement joking
 
         // time, date, and weather
         if (test.contains("time")) return QueryType.TIME;

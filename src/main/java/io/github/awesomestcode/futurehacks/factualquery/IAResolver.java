@@ -25,8 +25,10 @@ public class IAResolver implements BaseAnswerResolver {
 
     public String resolve(String query) {
         query = query.replace("What's", "What is");
+        query = query.replace("define ", "What is ");
+        query = query.replace("what's the definition of ", "what is");
         query = URLEncoder.encode(query, Charset.defaultCharset());
-        String queryURL = "https://api.duckduckgo.com/?q=" + query + "&format=json&pretty=1&t=hackathonproject";
+        String queryURL = "https://api.duckduckgo.com/?q=" + query + "&format=json&pretty=1&t=hackathonproject&no_redirect=true&no_html=1&skip_disambig=1";
         System.out.println("Query URL: " + queryURL);
         Request ddgRequest = new Request.Builder()
                 .url(queryURL)
