@@ -16,29 +16,38 @@ import java.util.Scanner;
 
 public class JokeResolver implements BaseAnswerResolver {
 
+    private static List<String> lines;
+
     private static JokeResolver instance;
+
+    private static boolean jokesDisabled;
 
     public static JokeResolver getInstance() {
         if(instance == null) instance = new JokeResolver();
         return instance;
     }
 
-    public String resolve(String query) {
-        FileReader fin = null;
-
-        URL url = this.getClass().getClassLoader().getResource("jokes.txt");
+    static {
+        URL url = JokeResolver.class.getClassLoader().getResource("jokes.txt");
         Path path = null;
-        List<String> lines;
+
         try {
             final Map<String, String> env = new HashMap<>();
             final String[] array = url.toString().split("!");
             final FileSystem fs = FileSystems.newFileSystem(URI.create(array[0]), env);
             path = fs.getPath(array[1]);
             lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+            fs.close();
         } catch (Exception e) {
             e.printStackTrace();
-            return "Uh oh. An unknown error occurred. Please try again.";
+            System.err.println("Something seriously went wrong when loading the jokes. Maybe we could say that a joker messed it up? Anyways, please contact us for help");
+            jokesDisabled = true;
         }
+    }
+
+    public String resolve(String query) {
+
+        if(jokesDisabled) return "There was an error while loading jokes; as such, jokes have been disabled. Try restarting the program or switching computers.";
 
         double random = Math.random() * 21;
         double num = Math.floor(random);
